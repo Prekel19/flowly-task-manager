@@ -1,6 +1,6 @@
 import { MouseEventHandler } from "react";
 
-export const Button = ({
+export const LightButton = ({
   title,
   onClick,
 }: {
@@ -9,7 +9,7 @@ export const Button = ({
 }) => {
   return (
     <button
-      className="flex justify-center bg-primary1 font-medium text-white rounded-lg py-1 cursor-pointer hover:bg-secondary1 transition duration-200"
+      className="flex justify-center bg-accent1 font-medium text-white rounded-lg py-1 cursor-pointer hover:bg-accent2 transition duration-200"
       onClick={onClick}
     >
       {title}

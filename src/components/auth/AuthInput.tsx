@@ -9,7 +9,7 @@ interface InputProps {
 export const AuthInput = ({ type, placeholder, onChange }: InputProps) => {
   return (
     <input
-      className="border border-slate-200 rounded-lg"
+      className="border border-slate-200 rounded-lg text-sm px-2 py-1"
       type={type}
       placeholder={placeholder}
       onChange={onChange}

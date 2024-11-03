@@ -1,25 +1,27 @@
 import { useState } from "react";
-import { AuthContainer } from "../components/Auth/AuthContainer";
+import { AuthContainer } from "../components/auth/AuthContainer";
 import { Logo } from "../components/Logo";
 import { Button } from "../components/Button";
-import { AuthInput } from "../components/Auth/AuthInput";
+import { LightButton } from "../components/LightButton";
+import { AuthInput } from "../components/auth/AuthInput";
+import { AuthHeader } from "../components/auth/AuthHeader";
+import { AuthDivider } from "../components/auth/AuthDivider";
+import { useGoogleSignIn } from "../hooks/useGoogleSignIn";
+import { useSignIn } from "../hooks/useSignIn";
 
 export const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const signIn = () => {
-    console.log(email);
-    console.log(password);
-  };
+  const { signIn, error } = useSignIn(email, password);
+  const { signInWithGoogle, googleError } = useGoogleSignIn();
 
   return (
     <AuthContainer>
       <Logo />
-      <h2 className="flex flex-col text-2xl font-bold">
-        Welcome to Flowly
-        <span className="text-base font-normal">Enter your info to get started</span>
-      </h2>
+      <AuthHeader title="Welcom to Flowly" subtitle="Enter your info to get started" />
+      <LightButton title="Google" onClick={signInWithGoogle} />
+      <AuthDivider />
       <AuthInput
         type="text"
         placeholder="Email"
@@ -30,6 +32,8 @@ export const Login = () => {
         placeholder="Password"
         onChange={(e) => setPassword(e.target.value)}
       />
+      {error != "" && <p className="text-sm">{error}</p>}
+      {googleError != "" && <p className="text-sm">{googleError}</p>}
       <Button onClick={signIn} title="Login" />
     </AuthContainer>
   );
