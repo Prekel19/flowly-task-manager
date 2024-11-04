@@ -12,3 +12,11 @@ export enum PopupErrors {
   ACCOUNT_EXIST_WITH_DIFFRENT_CREDENTIAL = "auth/account-exists-with-different-credential",
   OPERATION_NOT_ALLOWED = "auth/operation-not-allowed",
 }
+
+export enum RegisterErrors {
+  EMAIL_ALREADY_IN_USE = "auth/email-already-in-use",
+  INVALID_EMAIL = "auth/invalid-email",
+  WEAK_PASSWORD = "auth/weak-password",
+  PERMISSION_DENIED = "permission-denied",
+  NOT_FOUND = "not-found",
+}

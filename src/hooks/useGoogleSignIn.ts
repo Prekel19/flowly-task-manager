@@ -4,11 +4,7 @@ import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import { PopupErrors } from "../models/errors";
-
-type UseGoogleSignInResult = {
-  signInWithGoogle: () => Promise<void>;
-  googleError: string;
-};
+import { UseGoogleSignInResult } from "../models/auth";
 
 export const useGoogleSignIn = (): UseGoogleSignInResult => {
   const [error, setError] = useState<string>("");
@@ -22,25 +18,27 @@ export const useGoogleSignIn = (): UseGoogleSignInResult => {
       navigate("/");
     } catch (err) {
       if (err instanceof FirebaseError) {
-        switch (err.code) {
-          case PopupErrors.POPUP_CLOSED_BY_USER:
-            setError("Okno logowania zostało zamknięte");
-            break;
-          case PopupErrors.CANCELLED_POPUP_REQUEST:
-            setError("Poprzednie żądanie logowania zostało anulowane");
-            break;
-          case PopupErrors.POPUP_BLOCKED:
-            setError("Okno logowania zostało zablokowane przez przeglądarkę.");
-            break;
-          case PopupErrors.ACCOUNT_EXIST_WITH_DIFFRENT_CREDENTIAL:
-            setError("Konto zostało już zarejestrowane innym sposobem logowania.");
-            break;
-          case PopupErrors.OPERATION_NOT_ALLOWED:
-            setError("Logowanie za pomocą Google jest wyłączone.");
-        }
+        setError(getErrorMessage(err));
       }
     }
   };
 
   return { signInWithGoogle, googleError: error };
+};
+
+const getErrorMessage = (err: FirebaseError): string => {
+  switch (err.code) {
+    case PopupErrors.POPUP_CLOSED_BY_USER:
+      return "Okno logowania zostało zamknięte";
+    case PopupErrors.CANCELLED_POPUP_REQUEST:
+      return "Poprzednie żądanie logowania zostało anulowane";
+    case PopupErrors.POPUP_BLOCKED:
+      return "Okno logowania zostało zablokowane przez przeglądarkę.";
+    case PopupErrors.ACCOUNT_EXIST_WITH_DIFFRENT_CREDENTIAL:
+      return "Konto zostało już zarejestrowane innym sposobem logowania.";
+    case PopupErrors.OPERATION_NOT_ALLOWED:
+      return "Logowanie za pomocą Google jest wyłączone.";
+    default:
+      return "Wystąpił nieznany błąd";
+  }
 };

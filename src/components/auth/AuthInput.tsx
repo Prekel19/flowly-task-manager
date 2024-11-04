@@ -1,18 +1,16 @@
-import { ChangeEventHandler } from "react";
-
 interface InputProps {
   type: string;
   placeholder: string;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  onInputChange: (value: string) => void;
 }
 
-export const AuthInput = ({ type, placeholder, onChange }: InputProps) => {
+export const AuthInput = ({ type, placeholder, onInputChange }: InputProps) => {
   return (
     <input
       className="border border-slate-200 rounded-lg text-sm px-2 py-1"
       type={type}
       placeholder={placeholder}
-      onChange={onChange}
+      onChange={(e) => onInputChange(e.target.value)}
     />
   );
 };
