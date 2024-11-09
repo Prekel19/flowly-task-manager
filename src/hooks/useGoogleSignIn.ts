@@ -1,29 +1,27 @@
-import { useState } from "react";
 import { auth, googleProvider } from "../config/firebase";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import { PopupErrors } from "../models/errors";
-import { UseGoogleSignInResult } from "../models/auth";
+import { AuthResult } from "../models/auth";
 
-export const useGoogleSignIn = (): UseGoogleSignInResult => {
-  const [error, setError] = useState<string>("");
-
+export const useGoogleSignIn = (): AuthResult => {
   const navigate = useNavigate();
 
   const signInWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      setError("");
       navigate("/");
+
+      return null;
     } catch (err) {
       if (err instanceof FirebaseError) {
-        setError(getErrorMessage(err));
+        return getErrorMessage(err);
       }
     }
   };
 
-  return { signInWithGoogle, googleError: error };
+  return signInWithGoogle;
 };
 
 const getErrorMessage = (err: FirebaseError): string => {

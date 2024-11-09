@@ -15,25 +15,21 @@ export const useRegisterUser = (
   const [error, setError] = useState<string>("");
 
   const registerUser = async () => {
-    if (name && email && password && role) {
-      try {
-        const result = await createUserWithEmailAndPassword(auth, email, password);
-        const user = result.user;
-
-        await updateProfile(user, {
-          displayName: name,
-        });
-
-        await setDoc(doc(db, "users", user.uid), {
-          role: role,
-        });
-      } catch (err: unknown) {
-        if (err instanceof FirebaseError) {
-          setError(getErrorMessage(err));
-        }
+    try {
+      if (!name || !email || !password || !role) {
+        setError("Wszystkie pola są obowiązkowe");
+        throw new Error("Wszystkie pola są obowiązkowe");
       }
-    } else {
-      setError("Wszystkie pola są obowiązkowe");
+
+      const result = await createUserWithEmailAndPassword(auth, email, password);
+      const user = result.user;
+
+      await updateProfile(user, { displayName: name });
+      await setDoc(doc(db, "users", user.uid), { role: role });
+    } catch (err: unknown) {
+      if (err instanceof FirebaseError) {
+        setError(getErrorMessage(err));
+      }
     }
   };
 

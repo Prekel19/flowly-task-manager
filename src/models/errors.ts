@@ -1,5 +1,6 @@
 export enum UserErrors {
   WRONG_PASSWORD = "auth/wrong-password",
+  INVALID_CREDENTIAL = "auth/invalid-credential",
   USER_NOT_FOUND = "auth/user-not-found",
   INVALID_EMAIL = "auth/invalid-email",
   NETWORK_REQUEST_FAILED = "auth/network-request-failed",

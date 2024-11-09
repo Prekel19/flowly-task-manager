@@ -1,41 +1,42 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
 import { UserErrors } from "../models/errors";
 import { FirebaseError } from "firebase/app";
 import { auth } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
-import { UseSignInResult } from "../models/auth";
+import { AuthResult } from "../models/auth";
 
-export const useSignIn = (email: string, password: string): UseSignInResult => {
-  const [error, setError] = useState<string>("");
-
+export const useSignIn = (email: string, password: string): AuthResult => {
   const navigate = useNavigate();
 
   const signIn = async () => {
     if (email && password) {
       try {
         await signInWithEmailAndPassword(auth, email, password);
-        setError("");
         navigate("/");
+
+        return null;
       } catch (err: unknown) {
         if (err instanceof FirebaseError) {
-          setError(getErrorMessage(err));
+          return getErrorMessage(err);
         }
       }
     } else {
-      setError("Pola formularza nie są uzupełnione");
+      return "Pola formularza nie są uzupełnione";
     }
   };
 
-  return { signIn, signInError: error };
+  return signIn;
 };
 
 const getErrorMessage = (err: FirebaseError): string => {
+  console.log(err.code);
   switch (err.code) {
     case UserErrors.INVALID_EMAIL:
       return "Nie poprawny format e-mail";
+    case UserErrors.INVALID_CREDENTIAL:
+      return "Nie udało się zalogować. Proszę upewnić się, że podane dane są poprawne, i spróbować ponownie.";
     case UserErrors.USER_NOT_FOUND:
-      return " Użytkownik o podanym e-mailu nie istnieje";
+      return "Użytkownik o podanym e-mailu nie istnieje";
     case UserErrors.WRONG_PASSWORD:
       return "Hasło jest niepoprawne";
     case UserErrors.NETWORK_REQUEST_FAILED:
