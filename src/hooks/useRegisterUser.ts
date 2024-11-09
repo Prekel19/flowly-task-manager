@@ -1,39 +1,35 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "../config/firebase";
-import { useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
 import { FirebaseError } from "firebase/app";
 import { RegisterErrors } from "../models/errors";
-import { UseRegisterUserResult } from "../models/auth";
+import { AuthResult } from "../models/auth";
 
 export const useRegisterUser = (
   name: string,
   email: string,
   password: string,
   role: string
-): UseRegisterUserResult => {
-  const [error, setError] = useState<string>("");
-
+): AuthResult => {
   const registerUser = async () => {
-    try {
-      if (!name || !email || !password || !role) {
-        setError("Wszystkie pola są obowiązkowe");
-        throw new Error("Wszystkie pola są obowiązkowe");
-      }
+    if (name && email && password && role) {
+      try {
+        const result = await createUserWithEmailAndPassword(auth, email, password);
+        const user = result.user;
 
-      const result = await createUserWithEmailAndPassword(auth, email, password);
-      const user = result.user;
-
-      await updateProfile(user, { displayName: name });
-      await setDoc(doc(db, "users", user.uid), { role: role });
-    } catch (err: unknown) {
-      if (err instanceof FirebaseError) {
-        setError(getErrorMessage(err));
+        await updateProfile(user, { displayName: name });
+        await setDoc(doc(db, "users", user.uid), { role: role });
+      } catch (err: unknown) {
+        if (err instanceof FirebaseError) {
+          return getErrorMessage(err);
+        }
       }
+    } else {
+      return "Wszystkie pola są obowiązkowe";
     }
   };
 
-  return { registerUser, registerError: error };
+  return registerUser;
 };
 
 const getErrorMessage = (err: FirebaseError): string => {

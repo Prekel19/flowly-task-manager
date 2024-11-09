@@ -13,7 +13,6 @@ export const useSignIn = (email: string, password: string): AuthResult => {
       try {
         await signInWithEmailAndPassword(auth, email, password);
         navigate("/");
-
         return null;
       } catch (err: unknown) {
         if (err instanceof FirebaseError) {
@@ -21,7 +20,7 @@ export const useSignIn = (email: string, password: string): AuthResult => {
         }
       }
     } else {
-      return "Pola formularza nie są uzupełnione";
+      return "Wszystkie pola są obowiązkowe";
     }
   };
 

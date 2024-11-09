@@ -1,8 +1,4 @@
-interface InputProps {
-  type: string;
-  placeholder: string;
-  onInputChange: (value: string) => void;
-}
+import { InputProps } from "../../models/auth";
 
 export const AuthInput = ({ type, placeholder, onInputChange }: InputProps) => {
   return (

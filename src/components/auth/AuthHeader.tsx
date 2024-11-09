@@ -1,7 +1,4 @@
-interface HeaderProps {
-  title: string;
-  subtitle: string;
-}
+import { HeaderProps } from "../../models/auth";
 
 export const AuthHeader = ({ title, subtitle }: HeaderProps) => {
   return (
