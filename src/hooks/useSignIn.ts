@@ -11,12 +11,19 @@ export const useSignIn = (email: string, password: string): AuthResult => {
   const signIn = async () => {
     if (email && password) {
       try {
-        await signInWithEmailAndPassword(auth, email, password);
-        navigate("/");
-        return null;
+        const result = await signInWithEmailAndPassword(auth, email, password);
+        const user = result.user;
+        if (user.emailVerified) {
+          navigate("/");
+          return null;
+        } else {
+          return "Konto nie jest zweryfikowane.";
+        }
       } catch (err: unknown) {
         if (err instanceof FirebaseError) {
           return getErrorMessage(err);
+        } else {
+          return "Nieznany błąd";
         }
       }
     } else {

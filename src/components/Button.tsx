@@ -1,17 +1,7 @@
-import { MouseEventHandler } from "react";
 import { BeatLoader } from "react-spinners";
+import { ButtonProps } from "../models/types";
 
-export const Button = ({
-  title,
-  darkTheme,
-  isLoading,
-  onClick,
-}: {
-  title: string;
-  darkTheme: boolean;
-  isLoading?: boolean;
-  onClick: MouseEventHandler;
-}) => {
+export const Button = ({ title, darkTheme, isLoading, onClick }: ButtonProps) => {
   return (
     <button
       className={`min-h-8 flex items-center justify-center font-medium text-white rounded-lg py-1 cursor-pointer transition duration-200 ${

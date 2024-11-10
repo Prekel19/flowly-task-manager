@@ -1,4 +1,4 @@
-export type AuthResult = () => Promise<string | null | undefined>;
+export type AuthResult = () => Promise<string | null>;
 
 export interface HeaderProps {
   title: string;

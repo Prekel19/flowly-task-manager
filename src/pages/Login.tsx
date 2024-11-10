@@ -22,19 +22,15 @@ export const Login = () => {
 
   const handleLogin = async () => {
     const result = await signIn();
+    checkInputs();
 
-    if (result) {
-      checkInputs();
-      setError(result);
-    } else {
-      setError(null);
-    }
+    setError(result ? result : null);
     setLoading(false);
   };
 
   const handleGoogleAuth = async () => {
     const result = await signInWithGoogle();
-    setError(result ? null : "Wystąpił błąd podczas logowania");
+    setError(result ? result : null);
     setLoading(false);
   };
 
@@ -52,7 +48,7 @@ export const Login = () => {
       <AuthDivider />
       <AuthInput type="text" placeholder="Email" onInputChange={setEmail} />
       <AuthInput type="password" placeholder="Password" onInputChange={setPassword} />
-      {error && <p className="text-sm">{error}</p>}
+      {error && <p className="text-xs text-red-600 leading-tight">{error}</p>}
       <Button
         title="Login"
         darkTheme={true}

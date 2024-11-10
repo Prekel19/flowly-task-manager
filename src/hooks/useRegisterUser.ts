@@ -1,4 +1,8 @@
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  updateProfile,
+} from "firebase/auth";
 import { auth, db } from "../config/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { FirebaseError } from "firebase/app";
@@ -18,10 +22,14 @@ export const useRegisterUser = (
         const user = result.user;
 
         await updateProfile(user, { displayName: name });
-        await setDoc(doc(db, "users", user.uid), { role: role });
+        await sendEmailVerification(user);
+        await setDoc(doc(db, "users", user.uid), { user_id: user.uid, role: role });
+        return null;
       } catch (err: unknown) {
         if (err instanceof FirebaseError) {
           return getErrorMessage(err);
+        } else {
+          return "Nieznany błąd";
         }
       }
     } else {

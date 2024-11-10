@@ -17,6 +17,8 @@ export const useGoogleSignIn = (): AuthResult => {
     } catch (err) {
       if (err instanceof FirebaseError) {
         return getErrorMessage(err);
+      } else {
+        return "Nieznany błąd";
       }
     }
   };

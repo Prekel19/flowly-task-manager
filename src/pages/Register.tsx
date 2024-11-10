@@ -17,7 +17,13 @@ export const Register = () => {
   const [password, setPassword] = useState<string>("");
   const [role, setRole] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState<{
+    error: string | null;
+    success: string | null;
+  }>({
+    error: null,
+    success: null,
+  });
 
   const signInWithGoogle = useGoogleSignIn();
   const registerUser = useRegisterUser(name, email, password, role);
@@ -25,19 +31,21 @@ export const Register = () => {
 
   const handleRegister = async () => {
     const result = await registerUser();
+    checkInputs();
 
-    if (result) {
-      checkInputs();
-      setError(result);
-    } else {
-      setError(null);
-    }
+    setMessage({
+      success:
+        result == null
+          ? "Rejestracja przebiegła pomyślnie. Link weryfikacyjny został wysłany na podany adres email."
+          : null,
+      error: result,
+    });
     setLoading(false);
   };
 
   const handleGoogleAuth = async () => {
     const result = await signInWithGoogle();
-    setError(result ? null : "Wystąpił błąd podczas logowania");
+    setMessage({ ...message, error: result ? result : null });
     setLoading(false);
   };
 
@@ -57,7 +65,12 @@ export const Register = () => {
       <AuthInput type="text" placeholder="Email" onInputChange={setEmail} />
       <AuthInput type="password" placeholder="Password" onInputChange={setPassword} />
       <AuthSelectRole onSelectChange={setRole} />
-      {error && <p className="text-sm">{error}</p>}
+      {message.error && (
+        <p className="text-xs text-red-600 leading-tight">{message.error}</p>
+      )}
+      {message.success && (
+        <p className="text-xs text-green-600 leading-tight">{message.success}</p>
+      )}
       <Button
         title="Register"
         darkTheme={true}
