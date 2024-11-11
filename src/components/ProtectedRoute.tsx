@@ -21,5 +21,6 @@ export const ProtectedRoute = ({ children }: PropsWithChildren) => {
 
     return () => unsubscirbe();
   }, [navigate]);
-  return isVerified ?? children;
+
+  return isVerified && children;
 };

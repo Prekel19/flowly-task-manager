@@ -4,15 +4,24 @@ import { Home } from "./pages/Home";
 import { Register } from "./pages/Register";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { VerifyEmail } from "./pages/VerifyEmail";
+import { MainLayout } from "./layout/MainLayout";
+import { NotFound } from "./pages/NotFound";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
       <ProtectedRoute>
-        <Home />
+        <MainLayout />
       </ProtectedRoute>
     ),
+    errorElement: <NotFound />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+    ],
   },
   {
     path: "/login",

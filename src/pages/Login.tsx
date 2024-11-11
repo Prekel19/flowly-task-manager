@@ -8,7 +8,7 @@ import { AuthContainer } from "../components/auth/AuthContainer";
 import { AuthHeader } from "../components/auth/AuthHeader";
 import { AuthDivider } from "../components/auth/AuthDivider";
 import { AuthInput } from "../components/auth/AuthInput";
-import { Button } from "../components/Button";
+import { Button } from "../components/ui/Button";
 
 export const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -51,7 +51,7 @@ export const Login = () => {
       {error && <p className="text-xs text-red-600 leading-tight">{error}</p>}
       <Button
         title="Login"
-        darkTheme={true}
+        darkTheme
         isLoading={loading}
         onClick={() => {
           setLoading(true);

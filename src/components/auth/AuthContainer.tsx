@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import { Logo } from "../Logo";
+import { Logo } from "../ui/Logo";
 
 export const AuthContainer = ({ children }: PropsWithChildren) => {
   return (

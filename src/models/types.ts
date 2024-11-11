@@ -11,3 +11,8 @@ export type ButtonLinkProps = PropsWithChildren & {
   linkTo: string;
   className?: string;
 };
+
+export interface IMenuItems {
+  title: string;
+  linkTo: string;
+}

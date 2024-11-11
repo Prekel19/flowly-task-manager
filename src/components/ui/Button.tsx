@@ -1,5 +1,5 @@
 import { BeatLoader } from "react-spinners";
-import { ButtonProps } from "../models/types";
+import { ButtonProps } from "../../models/types";
 
 export const Button = ({ title, darkTheme, isLoading, onClick }: ButtonProps) => {
   return (

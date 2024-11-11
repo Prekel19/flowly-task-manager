@@ -7,7 +7,7 @@ html {
 }
 
 body {
-    font-family: "IBM Plex Sans", sans-serif;
+    font-family: "Inter", sans-serif;
     min-height: 100vh;
 }
 
@@ -29,4 +29,8 @@ h6 {
 
 .input-error {
     outline: 2px solid red;
+}
+
+.sidenav {
+    width: 260px;
 }

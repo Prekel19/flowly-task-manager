@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ButtonLinkProps } from "../models/types";
+import { ButtonLinkProps } from "../../models/types";
 
 export const ButtonLink = ({ children, linkTo, className }: ButtonLinkProps) => {
   return (
