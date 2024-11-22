@@ -1,6 +1,7 @@
 import { PropsWithChildren, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../config/firebase";
+import { UserContextProvider } from "../context/UserContext";
 
 export const ProtectedRoute = ({ children }: PropsWithChildren) => {
   const [isVerified, setIsVerified] = useState<boolean>(false);
@@ -22,5 +23,5 @@ export const ProtectedRoute = ({ children }: PropsWithChildren) => {
     return () => unsubscirbe();
   }, [navigate]);
 
-  return isVerified && children;
+  return isVerified && <UserContextProvider>{children}</UserContextProvider>;
 };

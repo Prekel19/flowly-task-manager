@@ -23,7 +23,11 @@ export const useRegisterUser = (
 
         await updateProfile(user, { displayName: name });
         await sendEmailVerification(user);
-        await setDoc(doc(db, "users", user.uid), { user_id: user.uid, role: role });
+        await setDoc(doc(db, "users", user.uid), {
+          user_id: user.uid,
+          role: role,
+          team_id: "",
+        });
         return null;
       } catch (err: unknown) {
         if (err instanceof FirebaseError) {

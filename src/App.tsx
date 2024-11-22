@@ -1,11 +1,16 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Login } from "./pages/Login";
-import { Home } from "./pages/Home";
-import { Register } from "./pages/Register";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-import { VerifyEmail } from "./pages/VerifyEmail";
 import { MainLayout } from "./layout/MainLayout";
+import { Home } from "./pages/protected-routes/Home";
+import { AssignTask } from "./pages/protected-routes/AssignTask";
+import { Calendar } from "./pages/protected-routes/Calendar";
+import { Login } from "./pages/Login";
+import { Register } from "./pages/Register";
 import { NotFound } from "./pages/NotFound";
+import { NotVerified } from "./pages/NotVerified";
+import { VerifyEmail } from "./pages/VerifyEmail";
+import { Tasks } from "./pages/protected-routes/Tasks";
+import { Team } from "./pages/protected-routes/Team";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +26,22 @@ const router = createBrowserRouter([
         index: true,
         element: <Home />,
       },
+      {
+        path: "assign-task",
+        element: <AssignTask />,
+      },
+      {
+        path: "calendar",
+        element: <Calendar />,
+      },
+      {
+        path: "tasks",
+        element: <Tasks />,
+      },
+      {
+        path: "team",
+        element: <Team />,
+      },
     ],
   },
   {
@@ -32,8 +53,12 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: "/verify-email",
+    path: "/verify-email/:params",
     element: <VerifyEmail />,
+  },
+  {
+    path: "/not-verified",
+    element: <NotVerified />,
   },
 ]);
 

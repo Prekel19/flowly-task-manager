@@ -1,4 +1,4 @@
-import { IMenuItems } from "@/models/types";
+import { IMenuItems } from "../models/types";
 import { Logo } from "./ui/Logo";
 import { NavItem } from "./NavItem";
 
@@ -12,7 +12,7 @@ const menuItems: IMenuItems[] = [
     linkTo: "/assign-task",
   },
   {
-    title: "kalendarz",
+    title: "Kalendarz",
     linkTo: "/calendar",
   },
   {
@@ -32,8 +32,8 @@ export const SideNav = () => {
         <Logo />
       </div>
       <div className="flex flex-col">
-        {menuItems.map((item) => (
-          <NavItem title={item.title} linkTo={item.linkTo} />
+        {menuItems.map((item, index) => (
+          <NavItem key={index} title={item.title} linkTo={item.linkTo} />
         ))}
       </div>
     </div>
