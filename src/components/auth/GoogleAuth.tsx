@@ -1,29 +1,41 @@
-import { auth, googleProvider } from "../config/firebase";
-import { signInWithPopup } from "firebase/auth";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FirebaseError } from "firebase/app";
-import { PopupErrors } from "../models/errors";
-import { AuthResult } from "../models/auth";
 
-export const useGoogleSignIn = (): AuthResult => {
+import { auth, googleProvider } from "@/config/firebase";
+import { FirebaseError } from "firebase/app";
+import { signInWithPopup } from "firebase/auth";
+import { PopupErrors } from "@/models/errors";
+import { Button } from "../ui/Button";
+
+export const GoogleAuth = ({ error }: { error: (value: string) => void }) => {
+  const [loading, setLoading] = useState<boolean>(false);
+
   const navigate = useNavigate();
 
   const signInWithGoogle = async () => {
     try {
+      setLoading(true);
       await signInWithPopup(auth, googleProvider);
       navigate("/");
-
-      return null;
     } catch (err) {
       if (err instanceof FirebaseError) {
-        return getErrorMessage(err);
+        error(getErrorMessage(err));
       } else {
-        return "Nieznany błąd";
+        error("Nieznany błąd");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
-  return signInWithGoogle;
+  return (
+    <Button
+      title="Google"
+      darkTheme={false}
+      isLoading={loading}
+      onClick={signInWithGoogle}
+    />
+  );
 };
 
 const getErrorMessage = (err: FirebaseError): string => {

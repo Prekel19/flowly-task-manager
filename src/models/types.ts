@@ -15,10 +15,5 @@ export type ButtonLinkProps = PropsWithChildren & {
 export interface IMenuItems {
   title: string;
   linkTo: string;
-}
-
-export interface User {
-  user_id: string;
-  role: string;
-  team_id?: string;
+  icon?: string;
 }

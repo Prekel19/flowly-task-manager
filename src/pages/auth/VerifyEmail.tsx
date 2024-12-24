@@ -1,4 +1,4 @@
-import { auth } from "../config/firebase";
+import { auth } from "@/config/firebase";
 import { applyActionCode } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { DotLoader } from "react-spinners";
@@ -30,7 +30,7 @@ export const VerifyEmail = () => {
   }, []);
 
   return (
-    <div className="max-w-80 w-full min-h-56 flex flex-col items-center py-6 px-4 mt-8 mx-auto rounded-xl shadow-[0_0_30px_1px_rgba(0,0,0,0.1)]">
+    <div className="max-w-80 w-full min-h-40 flex flex-col items-center py-6 px-4 mt-8 mx-auto rounded-xl shadow-[0_0_30px_1px_rgba(0,0,0,0.1)]">
       {loading && <DotLoader size={50} color="#C9E8FF" />}
       {message && (
         <div className="flex flex-col items-center gap-2 text-center">

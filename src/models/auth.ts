@@ -1,3 +1,10 @@
+export interface User {
+  user_id: string;
+  role: string;
+  team_id?: string;
+  verified: boolean;
+}
+
 export type AuthResult = () => Promise<string | null>;
 
 export interface HeaderProps {

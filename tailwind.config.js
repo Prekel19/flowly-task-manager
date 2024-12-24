@@ -3,6 +3,9 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      maxWidth: {
+        desktop: 1450,
+      },
       colors: {
         main: "#f7f9fc",
         sidenav: "#233044",
@@ -13,6 +16,9 @@ export default {
         secondary2: "#F7F7F7",
         accent1: "#C9E8FF",
         accent2: "#B2D1E6",
+      },
+      fontSize: {
+        md: "0.8rem",
       },
     },
   },

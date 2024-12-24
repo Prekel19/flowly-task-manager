@@ -1,4 +1,4 @@
-import { ButtonLink } from "../components/ui/ButtonLink";
+import { ButtonLink } from "@/components/ui/ButtonLink";
 
 export const NotVerified = () => {
   return (

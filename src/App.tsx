@@ -4,11 +4,11 @@ import { MainLayout } from "./layout/MainLayout";
 import { Home } from "./pages/protected-routes/Home";
 import { AssignTask } from "./pages/protected-routes/AssignTask";
 import { Calendar } from "./pages/protected-routes/Calendar";
-import { Login } from "./pages/Login";
-import { Register } from "./pages/Register";
+import { Login } from "./pages/auth/Login";
+import { Register } from "./pages/auth/Register";
 import { NotFound } from "./pages/NotFound";
-import { NotVerified } from "./pages/NotVerified";
-import { VerifyEmail } from "./pages/VerifyEmail";
+import { NotVerified } from "./pages/auth/NotVerified";
+import { VerifyEmail } from "./pages/auth/VerifyEmail";
 import { Tasks } from "./pages/protected-routes/Tasks";
 import { Team } from "./pages/protected-routes/Team";
 

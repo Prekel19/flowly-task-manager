@@ -1,12 +1,13 @@
 import { createContext, PropsWithChildren, useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../config/firebase";
-import { User } from "../models/types";
+import { User } from "../models/auth";
 
 const defaultVal: User = {
   user_id: "",
   role: "",
   team_id: "",
+  verified: false,
 };
 export const UserContext = createContext<User | null>(defaultVal);
 
@@ -27,7 +28,8 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
             const userData: User = {
               user_id: userSnap.user_id,
               role: userSnap.role,
-              team_id: userSnap.team_id || undefined,
+              team_id: userSnap.team_id,
+              verified: userSnap.verified,
             };
             setCurrentUser(userData);
           } else {
